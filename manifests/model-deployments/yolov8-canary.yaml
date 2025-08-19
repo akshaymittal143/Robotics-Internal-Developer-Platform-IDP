@@ -1,0 +1,44 @@
+apiVersion: robotics.idp/v1
+kind: ModelDeployment
+metadata:
+  name: yolov8-perception-canary
+  namespace: robotics-apps
+spec:
+  modelName: "yolov8-object-detection"
+  modelUri: "s3://ml-models/yolov8/v2.1/model.onnx"
+  modelFormat: "onnx"
+  version: "v2.1"
+  targetRobots:
+    selector:
+      matchLabels:
+        robot-type: "amr"
+        capabilities: "vision"
+      matchExpressions:
+        - key: "hardware.gpu.present"
+          operator: In
+          values: ["true"]
+    percentage: 10  # Canary deployment to 10% of fleet
+  deploymentStrategy:
+    type: "canary"
+    canaryPercentage: 10
+  resourceRequirements:
+    cpu: "2"
+    memory: "4Gi"
+    gpu: true
+    minReplicas: 1
+    maxReplicas: 3
+  monitoring:
+    enableMetrics: true
+    customMetrics:
+      - "inference_latency"
+      - "detection_accuracy"
+      - "gpu_utilization"
+  rollback:
+    enabled: true
+    conditions:
+      - metric: "inference_latency"
+        threshold: "200ms"
+        operator: ">"
+      - metric: "error_rate"
+        threshold: "5%"
+        operator: ">"

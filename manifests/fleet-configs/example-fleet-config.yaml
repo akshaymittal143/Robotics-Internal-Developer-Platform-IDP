@@ -1,0 +1,37 @@
+apiVersion: robotics.idp/v1
+kind: FleetConfiguration
+metadata:
+  name: production-fleet-config
+  namespace: default
+spec:
+  globalParameters:
+    maxVelocity: "2.0"  # m/s
+    safetyTimeout: "5s"
+    communicationInterval: "1s"
+  networkPolicy:
+    allowedEndpoints:
+      - "api.robotics-company.com"
+      - "models.ml-platform.com"
+      - "logs.observability.com"
+    securityLevel: "enhanced"
+  resourceQuotas:
+    maxCpuPerRobot: "4"
+    maxMemoryPerRobot: "8Gi"
+    maxStoragePerRobot: "100Gi"
+  updatePolicy:
+    strategy: "rolling"
+    maxUnavailable: "25%"
+    maxSurge: "25%"
+  monitoring:
+    metricsEndpoint: "http://prometheus:9090"
+    logLevel: "info"
+    alertingRules:
+      - name: "high-cpu-usage"
+        condition: "cpu_usage > 80"
+        severity: "warning"
+      - name: "low-battery"
+        condition: "battery_level < 20"
+        severity: "critical"
+      - name: "communication-timeout"
+        condition: "last_heartbeat > 10s"
+        severity: "critical"

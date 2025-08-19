@@ -1,0 +1,114 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: fleetconfigurations.robotics.idp
+spec:
+  group: robotics.idp
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              globalParameters:
+                type: object
+                properties:
+                  maxVelocity:
+                    type: string
+                    description: "Maximum navigation velocity (m/s)"
+                  safetyTimeout:
+                    type: string
+                    description: "Emergency stop timeout"
+                  communicationInterval:
+                    type: string
+                    description: "Heartbeat interval"
+              networkPolicy:
+                type: object
+                properties:
+                  allowedEndpoints:
+                    type: array
+                    items:
+                      type: string
+                  securityLevel:
+                    type: string
+                    enum: ["basic", "enhanced", "strict"]
+              resourceQuotas:
+                type: object
+                properties:
+                  maxCpuPerRobot:
+                    type: string
+                  maxMemoryPerRobot:
+                    type: string
+                  maxStoragePerRobot:
+                    type: string
+              updatePolicy:
+                type: object
+                properties:
+                  strategy:
+                    type: string
+                    enum: ["rolling", "canary", "blue-green"]
+                  maxUnavailable:
+                    type: string
+                  maxSurge:
+                    type: string
+              monitoring:
+                type: object
+                properties:
+                  metricsEndpoint:
+                    type: string
+                  logLevel:
+                    type: string
+                    enum: ["debug", "info", "warn", "error"]
+                  alertingRules:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        condition:
+                          type: string
+                        severity:
+                          type: string
+          status:
+            type: object
+            properties:
+              appliedAt:
+                type: string
+                format: date-time
+              robotsAffected:
+                type: integer
+              conditions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    status:
+                      type: string
+                    lastTransitionTime:
+                      type: string
+                      format: date-time
+        required:
+        - spec
+    additionalPrinterColumns:
+    - name: Applied At
+      type: string
+      jsonPath: .status.appliedAt
+    - name: Robots Affected
+      type: integer
+      jsonPath: .status.robotsAffected
+    - name: Age
+      type: date
+      jsonPath: .metadata.creationTimestamp
+  scope: Cluster
+  names:
+    plural: fleetconfigurations
+    singular: fleetconfiguration
+    kind: FleetConfiguration
