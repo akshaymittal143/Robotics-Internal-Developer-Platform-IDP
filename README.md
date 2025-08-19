@@ -1,5 +1,7 @@
 # Robotics Internal Developer Platform (IDP) - Reference Implementation
 
+**🔗 Repository:** https://github.com/akshaymittal143/Robotics-Internal-Developer-Platform-IDP
+
 This repository contains the reference implementation and reproducibility artifacts for the paper:
 
 **"A Cloud-Native Internal Developer Platform for the Accelerated Lifecycle Management of Heterogeneous Autonomous Robot Fleets"**
