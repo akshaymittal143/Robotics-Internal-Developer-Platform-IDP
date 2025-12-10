@@ -1,13 +1,13 @@
-apiVersion: robotics.idp/v1
+apiVersion: robotics.io/v1
 kind: ModelDeployment
 metadata:
-  name: yolov8-perception-canary
+  name: yolo-detection-v2
   namespace: robotics-apps
 spec:
   modelName: "yolov8-object-detection"
-  modelUri: "s3://ml-models/yolov8/v2.1/model.onnx"
+  modelUri: "s3://models/yolov8-v2.onnx"
   modelFormat: "onnx"
-  version: "v2.1"
+  version: "v2"
   targetRobots:
     selector:
       matchLabels:

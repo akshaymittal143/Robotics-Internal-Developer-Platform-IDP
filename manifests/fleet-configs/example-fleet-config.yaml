@@ -1,4 +1,4 @@
-apiVersion: robotics.idp/v1
+apiVersion: robotics.io/v1
 kind: FleetConfiguration
 metadata:
   name: production-fleet-config

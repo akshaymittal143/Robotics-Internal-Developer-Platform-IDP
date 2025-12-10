@@ -4,7 +4,9 @@
 
 This repository contains the reference implementation and reproducibility artifacts for the paper:
 
-**"A Cloud-Native Internal Developer Platform for the Accelerated Lifecycle Management of Heterogeneous Autonomous Robot Fleets"**
+**"A Cloud-Native Internal Developer Platform for Autonomous Robot Fleets"**  
+📄 *Accepted at ICCA 2025 (International Conference on Computing and Artificial Intelligence)*  
+👥 *Authors: Akshay Mittal, Krishna Kandi*
 
 ## Repository Structure
 
@@ -87,12 +89,15 @@ If you use this code in your research, please cite:
 
 ```bibtex
 @inproceedings{mittal2025robotics,
-  title={A Cloud-Native Internal Developer Platform for the Accelerated Lifecycle Management of Heterogeneous Autonomous Robot Fleets},
+  title={A Cloud-Native Internal Developer Platform for Autonomous Robot Fleets},
   author={Mittal, Akshay and Kandi, Krishna},
-  booktitle={Proceedings of [Conference Name]},
-  year={2025}
+  booktitle={2025 International Conference on Computing and Artificial Intelligence (ICCA)},
+  year={2025},
+  organization={IEEE}
 }
 ```
+
+**Paper Status:** ✅ **Accepted at ICCA 2025**
 
 ## License
 
